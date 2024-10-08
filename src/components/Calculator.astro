@@ -1,0 +1,76 @@
+<html lang="en"> 
+<head>
+    <title>Calculadora</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.0/dist/full.css" rel="stylesheet">
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-sky-200">
+    <div class="p-6 bg-gray-800 rounded-lg shadow-lg">
+        <h2 class="absolute top-0 left-1/2 transform -translate-x-1/2 text-6xl font-bold text-blue-500 mt-8">
+            AstroCalculadora
+        </h2>
+        <input type="text" id="display" class="input input-bordered w-full mb-4 text-right" />
+        <div class="grid grid-cols-4 gap-4">
+            <button class="btn">7</button>
+            <button class="btn">8</button>
+            <button class="btn">9</button>
+            <button class="btn btn-accent">/</button>
+            <button class="btn">4</button>
+            <button class="btn">5</button>
+            <button class="btn">6</button>
+            <button class="btn btn-accent">*</button>
+            <button class="btn">1</button>
+            <button class="btn">2</button>
+            <button class="btn">3</button>
+            <button class="btn btn-accent">-</button>
+            <button class="btn">0</button>
+            <button class="btn btn-accent">C</button>
+            <button class="btn btn-accent">+</button>
+            <button class="btn btn-accent">=</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const display = document.getElementById('display') as HTMLInputElement; 
+            const buttons = document.querySelectorAll('.btn');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const value = button.textContent || '';
+                    if (value === 'C') {
+                        clearDisplay();
+                    } else if (value === '=') {
+                        calculate();
+                    } else {
+                        appendToDisplay(value);
+                    }
+                });
+            });
+
+            function appendToDisplay(value: string) {
+                if (display) {
+                    display.value += value;  
+                }
+            }
+
+            function calculate() {
+                if (display) {
+                    try {
+                        display.value = eval(display.value);
+                    } catch (error) {
+                        display.value = 'Error';
+                    }
+                }
+            }
+
+            function clearDisplay() {
+                if (display) {
+                    display.value = ''; 
+                }
+            }
+        });
+    </script>
+</body>
+</html>
